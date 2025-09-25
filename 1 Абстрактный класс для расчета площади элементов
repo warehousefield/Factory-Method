@@ -1,0 +1,10 @@
+C#
+
+using Autodesk.Revit.DB;
+
+// Абстрактный класс для расчета площади элементов
+public abstract class AreaCalculator
+{
+    // Абстрактный метод, который должен быть реализован в дочерних классах
+    public abstract double CalculateArea(Document doc);
+}
