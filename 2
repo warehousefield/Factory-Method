@@ -1,0 +1,21 @@
+using Autodesk.Revit.DB;
+using System.Linq;
+
+// Класс для расчета площади перекрытий
+public class FloorAreaCalculator : AreaCalculator
+{
+    public override double CalculateArea(Document doc)
+    {
+        // Используем FilteredElementCollector для поиска всех элементов типа "Floor"
+        var floors = new FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_Floors)
+            .WhereElementIsNotElementType()
+            .ToElements();
+
+        // Суммируем площади всех найденных перекрытий
+        double totalArea = floors.Sum(f => f.Get</a>pParameters("Area").FirstOrDefault()?.AsDouble() ?? 0.0);
+        
+        // Возвращаем площадь в квадратных футах (внутренние единицы Revit)
+        return totalArea;
+    }
+}
