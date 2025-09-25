@@ -1,0 +1,8 @@
+// Конкретная фабрика для создания калькулятора перекрытий
+public class FloorCalculatorFactory : IAreaCalculatorFactory
+{
+    public AreaCalculator CreateCalculator()
+    {
+        return new FloorAreaCalculator();
+    }
+}
