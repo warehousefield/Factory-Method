@@ -1,0 +1,28 @@
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using Autodesk.Revit.Attributes;
+using System.Windows.Forms;
+
+[Transaction(TransactionMode.Manual)]
+public class CalculateFloorAreaCommand : IExternalCommand
+{
+    public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+    {
+        Document doc = commandData.Application.ActiveUIDocument.Document;
+
+        // Создаем конкретную фабрику
+        IAreaCalculatorFactory factory = new FloorCalculatorFactory();
+
+        // Используем фабрику для создания нужного нам калькулятора.
+        // Нам не нужно знать, что внутри фабрика создаёт именно FloorAreaCalculator.
+        AreaCalculator calculator = factory.CreateCalculator();
+
+        // Выполняем расчёт, используя наш калькулятор
+        double totalArea = calculator.CalculateArea(doc);
+
+        // Отображаем результат
+        MessageBox.Show($"Общая площадь перекрытий: {totalArea:F2} кв.футов.", "Расчет площади", MessageBoxButtons.OK);
+
+        return Result.Succeeded;
+    }
+}
