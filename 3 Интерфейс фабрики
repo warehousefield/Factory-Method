@@ -1,0 +1,5 @@
+// Интерфейс фабрики для создания калькулятора
+public interface IAreaCalculatorFactory
+{
+    AreaCalculator CreateCalculator();
+}
